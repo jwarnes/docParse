@@ -1,0 +1,6 @@
+*.suo
+*.exe
+*.user
+*.DotSettings.user
+bin/
+obj/
