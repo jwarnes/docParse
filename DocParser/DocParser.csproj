@@ -55,25 +55,28 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMapField.cs">
+    <Compile Include="frmAddEditMap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMapField.Designer.cs">
-      <DependentUpon>frmMapField.cs</DependentUpon>
+    <Compile Include="frmAddEditMap.Designer.cs">
+      <DependentUpon>frmAddEditMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMapping.Designer.cs">
+      <DependentUpon>frmMapping.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolStripButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ToolStripText.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMapField.resx">
-      <DependentUpon>frmMapField.cs</DependentUpon>
+    <EmbeddedResource Include="frmAddEditMap.resx">
+      <DependentUpon>frmAddEditMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMapping.resx">
+      <DependentUpon>frmMapping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

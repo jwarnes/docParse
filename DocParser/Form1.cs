@@ -39,7 +39,16 @@ namespace DocParser
         {
             lblLoading.Text = "";
         }
+        private void listP_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            new frmMapField(listP.SelectedIndex, this).Show();
+        }
 
+        private void btnEnablebreak_Click(object sender, EventArgs e)
+        {
+            breakp = !breakp;
+            btnDebug.Checked = breakp;
+        }
         #endregion
 
         public void ParseDoc(DocX doc)
@@ -68,15 +77,7 @@ namespace DocParser
             return map;
         }
 
-        private void btnEnablebreak_Click(object sender, EventArgs e)
-        {
-            breakp = !breakp;
-            btnEnablebreak.Checked = breakp;
-        }
 
-        private void listP_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            new frmMapField(listP.SelectedIndex).Show();
-        }
+
     }
 }

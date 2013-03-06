@@ -33,12 +33,15 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblLoading = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.btnOpen = new System.Windows.Forms.ToolStripButton();
+            this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDebug = new System.Windows.Forms.ToolStripButton();
+            this.btnImportDoc = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btnEnablebreak = new System.Windows.Forms.ToolStripButton();
             this.listP = new System.Windows.Forms.ListBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnEditMap = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -72,55 +75,71 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripButton,
-            this.saveToolStripButton,
+            this.btnImportDoc,
             this.toolStripSeparator,
-            this.btnEnablebreak});
+            this.btnOpen,
+            this.btnSave,
+            this.toolStripSeparator1,
+            this.btnEditMap,
+            this.btnDebug});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(349, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // openToolStripButton
+            // btnOpen
             // 
-            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.openToolStripButton.Text = "&Open";
-            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
+            this.btnOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnOpen.Image = ((System.Drawing.Image)(resources.GetObject("btnOpen.Image")));
+            this.btnOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(23, 22);
+            this.btnOpen.Text = "&Open";
+            this.btnOpen.ToolTipText = "Open Map";
             // 
-            // saveToolStripButton
+            // btnSave
             // 
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
-            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.saveToolStripButton.Text = "&Save";
+            this.btnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(23, 22);
+            this.btnSave.Text = "&Save";
+            this.btnSave.ToolTipText = "Save Map";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
             // 
+            // btnDebug
+            // 
+            this.btnDebug.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDebug.Image = ((System.Drawing.Image)(resources.GetObject("btnDebug.Image")));
+            this.btnDebug.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDebug.Name = "btnDebug";
+            this.btnDebug.Size = new System.Drawing.Size(23, 22);
+            this.btnDebug.Text = "toolStripButton1";
+            this.btnDebug.ToolTipText = "Debug Mode";
+            this.btnDebug.Click += new System.EventHandler(this.btnEnablebreak_Click);
+            // 
+            // btnImportDoc
+            // 
+            this.btnImportDoc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnImportDoc.Image = ((System.Drawing.Image)(resources.GetObject("btnImportDoc.Image")));
+            this.btnImportDoc.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnImportDoc.Name = "btnImportDoc";
+            this.btnImportDoc.Size = new System.Drawing.Size(23, 22);
+            this.btnImportDoc.Text = "toolStripButton1";
+            this.btnImportDoc.ToolTipText = "Import Word Document";
+            this.btnImportDoc.Click += new System.EventHandler(this.openToolStripButton_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "atp-cop.docx";
             this.openFileDialog1.Filter = "Word 2007/2010 files|*.docx|All Files|*.*\"";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // btnEnablebreak
-            // 
-            this.btnEnablebreak.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEnablebreak.Image = ((System.Drawing.Image)(resources.GetObject("btnEnablebreak.Image")));
-            this.btnEnablebreak.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEnablebreak.Name = "btnEnablebreak";
-            this.btnEnablebreak.Size = new System.Drawing.Size(23, 22);
-            this.btnEnablebreak.Text = "toolStripButton1";
-            this.btnEnablebreak.Click += new System.EventHandler(this.btnEnablebreak_Click);
             // 
             // listP
             // 
@@ -131,6 +150,21 @@
             this.listP.Size = new System.Drawing.Size(349, 214);
             this.listP.TabIndex = 4;
             this.listP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listP_MouseDoubleClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnEditMap
+            // 
+            this.btnEditMap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnEditMap.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMap.Image")));
+            this.btnEditMap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEditMap.Name = "btnEditMap";
+            this.btnEditMap.Size = new System.Drawing.Size(23, 22);
+            this.btnEditMap.Text = "toolStripButton1";
+            this.btnEditMap.ToolTipText = "Edit Field Mappings";
             // 
             // Form1
             // 
@@ -159,12 +193,15 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblLoading;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton openToolStripButton;
-        private System.Windows.Forms.ToolStripButton saveToolStripButton;
+        private System.Windows.Forms.ToolStripButton btnOpen;
+        private System.Windows.Forms.ToolStripButton btnSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ToolStripButton btnEnablebreak;
+        private System.Windows.Forms.ToolStripButton btnDebug;
         private System.Windows.Forms.ListBox listP;
+        private System.Windows.Forms.ToolStripButton btnImportDoc;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btnEditMap;
     }
 }
 
