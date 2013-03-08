@@ -45,6 +45,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblMapName = new System.Windows.Forms.ToolStripLabel();
             this.btnNew = new System.Windows.Forms.ToolStripButton();
+            this.saveFileMap = new System.Windows.Forms.SaveFileDialog();
+            this.openFileMap = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -119,6 +121,7 @@
             this.btnOpen.Size = new System.Drawing.Size(23, 22);
             this.btnOpen.Text = "&Open";
             this.btnOpen.ToolTipText = "Open Map";
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // btnSave
             // 
@@ -129,6 +132,7 @@
             this.btnSave.Size = new System.Drawing.Size(23, 22);
             this.btnSave.Text = "&Save";
             this.btnSave.ToolTipText = "Save Map";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // toolStripSeparator1
             // 
@@ -160,6 +164,7 @@
             // 
             this.openFileDialog1.FileName = "atp-cop.docx";
             this.openFileDialog1.Filter = "Word 2007/2010 files|*.docx|All Files|*.*\"";
+            this.openFileDialog1.Title = "Import Word Document";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
             // listP
@@ -191,6 +196,18 @@
             this.btnNew.Name = "btnNew";
             this.btnNew.Size = new System.Drawing.Size(23, 22);
             this.btnNew.Text = "&New";
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            // 
+            // saveFileMap
+            // 
+            this.saveFileMap.Filter = "XML Files|*.xml";
+            this.saveFileMap.Title = "Save Map";
+            // 
+            // openFileMap
+            // 
+            this.openFileMap.FileName = "openFileDialog2";
+            this.openFileMap.Filter = "XML Files|*.xml";
+            this.openFileMap.Title = "Load Map";
             // 
             // Form1
             // 
@@ -231,6 +248,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel lblMapName;
         private System.Windows.Forms.ToolStripButton btnNew;
+        private System.Windows.Forms.SaveFileDialog saveFileMap;
+        private System.Windows.Forms.OpenFileDialog openFileMap;
     }
 }
 

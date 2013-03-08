@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Xml;
+using System.Xml.Linq;
 using Novacode;
 
 namespace DocParser
@@ -101,6 +103,15 @@ namespace DocParser
             lblLoading.Text = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
             GetParagraphs(Document);
         }
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            saveFileMap.ShowDialog();
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            openFileMap.ShowDialog();
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             lblLoading.Text = "";
@@ -112,7 +123,15 @@ namespace DocParser
             mapForm.Show(); 
             mapForm.Focus();
         }
-
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Discard current map? Unsaved changes will be lost.", "New Map", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.OK)
+            {
+                map.Clear();
+                mapName = "<unsaved map>";
+                UpdateMapInfo();
+            }
+        }
         private void btnEnablebreak_Click(object sender, EventArgs e)
         {
             DebugMode = !DebugMode;
@@ -144,5 +163,46 @@ namespace DocParser
                 i++;
             }
         }
+
+        #region Serialization
+
+        public void SaveMap(Dictionary<int, string> map, string path)
+        {
+            var settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.IndentChars = ("   ");
+
+            using( var w = XmlWriter.Create(path, settings))
+            {
+                w.WriteStartDocument();
+                w.WriteStartElement("Map");
+                w.WriteAttributeString("name", mapName);
+                foreach (var field in map)
+                {
+                    w.WriteStartElement("Field");
+                        w.WriteAttributeString("name", field.Value);
+                        w.WriteAttributeString("paragraph", field.Key.ToString());
+                    w.WriteEndElement();
+                }
+                w.WriteEndElement();
+                w.WriteEndDocument();
+            }
+        }
+
+        public void LoadMap(string path)
+        {
+            var xml = XElement.Load(path);
+
+            map.Clear();
+            mapName = (string)xml.Element("Map").Attribute("name");
+
+            map = xml.Elements("Field")
+            .Select(x => new { paragraph = (int)x.Attribute("paragraph"), name = (string)x.Attribute("name") })
+            .ToDictionary(x => x.paragraph, x => x.name);
+
+            UpdateMapInfo();
+        }
+
+        #endregion
     }
 }
