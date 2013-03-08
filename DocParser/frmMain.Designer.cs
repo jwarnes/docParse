@@ -1,6 +1,6 @@
 ﻿namespace DocParser
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblLoading = new System.Windows.Forms.ToolStripStatusLabel();
@@ -47,6 +47,7 @@
             this.listP = new System.Windows.Forms.ListBox();
             this.saveFileMap = new System.Windows.Forms.SaveFileDialog();
             this.openFileMap = new System.Windows.Forms.OpenFileDialog();
+            this.btnHelp = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,6 +89,7 @@
             this.toolStripSeparator1,
             this.btnViewMap,
             this.btnDebug,
+            this.btnHelp,
             this.toolStripSeparator2,
             this.lblMapName});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -169,6 +171,7 @@
             this.btnDebug.Size = new System.Drawing.Size(23, 22);
             this.btnDebug.Text = "toolStripButton1";
             this.btnDebug.ToolTipText = "Debug Mode";
+            this.btnDebug.Visible = false;
             this.btnDebug.Click += new System.EventHandler(this.btnEnablebreak_Click);
             // 
             // toolStripSeparator2
@@ -184,7 +187,6 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "atp-cop.docx";
             this.openFileDialog1.Filter = "Word 2007/2010 files|*.docx|All Files|*.*\"";
             this.openFileDialog1.Title = "Import Word Document";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
@@ -211,6 +213,16 @@
             this.openFileMap.Filter = "XML Files|*.xml";
             this.openFileMap.Title = "Load Map";
             this.openFileMap.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileMap_FileOk);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnHelp.Image = ((System.Drawing.Image)(resources.GetObject("btnHelp.Image")));
+            this.btnHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(23, 22);
+            this.btnHelp.Text = "He&lp";
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // Form1
             // 
@@ -254,6 +266,7 @@
         private System.Windows.Forms.ToolStripButton btnNew;
         private System.Windows.Forms.SaveFileDialog saveFileMap;
         private System.Windows.Forms.OpenFileDialog openFileMap;
+        private System.Windows.Forms.ToolStripButton btnHelp;
     }
 }
 

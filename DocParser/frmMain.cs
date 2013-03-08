@@ -13,7 +13,7 @@ using Novacode;
 
 namespace DocParser
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         #region Fields
         public DocX Document { get; set; }
@@ -26,6 +26,13 @@ namespace DocParser
         private string mapName = "<unsaved map>";
         public string MapName { get { return mapName; } }
         #endregion
+
+        public frmMain()
+        {
+            InitializeComponent();
+            map = new Dictionary<int, string>();
+            view = new frmViewMap(this);
+        }
 
         #region Expose Map
         public bool Overwrite(string name)
@@ -109,6 +116,7 @@ namespace DocParser
             Document = DocX.Load(openFileDialog1.FileName);
             lblLoading.Text = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
             GetParagraphs(Document);
+            UpdateMapInfo();
 
         }
         private void btnSave_Click(object sender, EventArgs e)
@@ -120,6 +128,7 @@ namespace DocParser
             var s = Path.GetFileNameWithoutExtension(saveFileMap.FileName);
             mapName = (s.Length <= 24) ? s : s.Substring(0, 21) + "...";
             SaveMap(map, saveFileMap.FileName);
+            UpdateMapInfo();
         }
         private void btnOpen_Click(object sender, EventArgs e)
         {
@@ -154,22 +163,18 @@ namespace DocParser
             DebugMode = !DebugMode;
             btnDebug.Checked = DebugMode;
         }
+        private void btnViewMap_Click(object sender, EventArgs e)
+        {
+            view.Show();
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://www.jwarnes.net/sp/apps/dp/doc/");
+        }
+
+
         #endregion
-
-        public Form1()
-        {
-            InitializeComponent();
-            map = new Dictionary<int, string>();
-            view = new frmViewMap(this);
-        }
-
-        public void ParseDoc(DocX doc)
-        {
-            if (DebugMode) System.Diagnostics.Debugger.Break();
-            int estimatedBudget = Convert.ToInt32(doc.Paragraphs[92].Text.Replace("USD $", string.Empty).Replace(",", string.Empty));
-            string country = doc.Paragraphs[4].Text;
-            DateTime date = DateTime.Parse(doc.Tables[0].Paragraphs[1].Text);
-        }
 
         public void GetParagraphs(DocX doc)
         {
@@ -181,6 +186,7 @@ namespace DocParser
                 i++;
             }
             listP.Enabled = (i > 0);
+
         }
 
         #region Serialization
@@ -223,14 +229,5 @@ namespace DocParser
         }
 
         #endregion
-
-        private void btnViewMap_Click(object sender, EventArgs e)
-        {
-            view.Show();
-        }
-
-
-
-
     }
 }

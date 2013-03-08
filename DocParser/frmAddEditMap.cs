@@ -13,20 +13,11 @@ namespace DocParser
     {
         #region Fields
         public bool EditMode { get; set; }
-        private Form1 parent;
+        private frmMain parent;
         private int index;
         #endregion
 
-        public frmAddEditMap(int index, Form1 parent)
-        {
-            InitializeComponent();
-            this.parent = parent;
-            this.index = index;
-
-            if(parent.Document != null)
-                txtParagraph.Text = parent.Document.Paragraphs[index].Text;
-            lblParagraphNumber.Text += " " + index.ToString();
-        }
+        #region UI
 
         private void frmAddEditMap_Load(object sender, EventArgs e)
         {
@@ -61,15 +52,29 @@ namespace DocParser
             }
         }
 
-        private void txtFieldName_TextChanged(object sender, EventArgs e)
-        {
-            btnSave.Enabled = (txtFieldName.Text != "" && txtFieldName.Text != "<Enter field name>");
-        }
-
         private void btnUnmap_Click(object sender, EventArgs e)
         {
             parent.RemoveMap(index);
             Close();
+        }
+        #endregion
+
+        public frmAddEditMap(int index, frmMain parent)
+        {
+            InitializeComponent();
+            this.parent = parent;
+            this.index = index;
+
+            if (parent.Document != null && parent.Document.Paragraphs.Count > index)
+                txtParagraph.Text = parent.Document.Paragraphs[index].Text;
+            else
+                txtParagraph.Text = "<No data found>";
+            lblParagraphNumber.Text += " " + index.ToString();
+        }
+
+        private void txtFieldName_TextChanged(object sender, EventArgs e)
+        {
+            btnSave.Enabled = (txtFieldName.Text != "" && txtFieldName.Text != "<Enter field name>");
         }
     }
 }
