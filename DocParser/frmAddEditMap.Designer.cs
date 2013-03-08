@@ -29,23 +29,52 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtParagraph = new System.Windows.Forms.TextBox();
+            this.txtFieldName = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
             this.lblParagraphNumber = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtParagraph = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.txtFieldName);
+            this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.lblParagraphNumber);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 223);
+            this.panel1.Location = new System.Drawing.Point(0, 81);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(284, 38);
+            this.panel1.Size = new System.Drawing.Size(284, 32);
             this.panel1.TabIndex = 0;
+            // 
+            // txtFieldName
+            // 
+            this.txtFieldName.Location = new System.Drawing.Point(90, 7);
+            this.txtFieldName.Name = "txtFieldName";
+            this.txtFieldName.Size = new System.Drawing.Size(108, 20);
+            this.txtFieldName.TabIndex = 0;
+            this.txtFieldName.Text = "<Enter field name>";
+            this.txtFieldName.TextChanged += new System.EventHandler(this.txtFieldName_TextChanged);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(204, 6);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 1;
+            this.btnSave.Text = "&Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // lblParagraphNumber
+            // 
+            this.lblParagraphNumber.AutoSize = true;
+            this.lblParagraphNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblParagraphNumber.Location = new System.Drawing.Point(3, 10);
+            this.lblParagraphNumber.Name = "lblParagraphNumber";
+            this.lblParagraphNumber.Size = new System.Drawing.Size(69, 13);
+            this.lblParagraphNumber.TabIndex = 0;
+            this.lblParagraphNumber.Text = "Paragraph #:";
             // 
             // txtParagraph
             // 
@@ -55,45 +84,21 @@
             this.txtParagraph.Name = "txtParagraph";
             this.txtParagraph.ReadOnly = true;
             this.txtParagraph.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtParagraph.Size = new System.Drawing.Size(284, 223);
+            this.txtParagraph.Size = new System.Drawing.Size(284, 81);
             this.txtParagraph.TabIndex = 1;
-            // 
-            // lblParagraphNumber
-            // 
-            this.lblParagraphNumber.AutoSize = true;
-            this.lblParagraphNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblParagraphNumber.Location = new System.Drawing.Point(3, 13);
-            this.lblParagraphNumber.Name = "lblParagraphNumber";
-            this.lblParagraphNumber.Size = new System.Drawing.Size(28, 16);
-            this.lblParagraphNumber.TabIndex = 0;
-            this.lblParagraphNumber.Text = "[P]";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(182, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(52, 9);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 2;
             // 
             // frmAddEditMap
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(284, 113);
             this.Controls.Add(this.txtParagraph);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "frmAddEditMap";
-            this.Text = "frmAddEditMap";
+            this.Text = "Add/Edit Field";
+            this.Load += new System.EventHandler(this.frmAddEditMap_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -104,8 +109,8 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtFieldName;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblParagraphNumber;
         private System.Windows.Forms.TextBox txtParagraph;
     }
