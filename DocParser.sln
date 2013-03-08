@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocParser", "DocParser\DocParser.csproj", "{8D33350E-1196-4DDA-ADB5-65034FBFA458}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocParserConfig", "DocParser\DocParserConfig.csproj", "{8D33350E-1196-4DDA-ADB5-65034FBFA458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
