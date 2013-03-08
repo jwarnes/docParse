@@ -33,18 +33,20 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.lblParagraphNumber = new System.Windows.Forms.Label();
             this.txtParagraph = new System.Windows.Forms.TextBox();
+            this.btnUnmap = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.txtFieldName);
+            this.panel1.Controls.Add(this.btnUnmap);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.lblParagraphNumber);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 81);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(284, 32);
+            this.panel1.Size = new System.Drawing.Size(349, 32);
             this.panel1.TabIndex = 0;
             // 
             // txtFieldName
@@ -84,15 +86,26 @@
             this.txtParagraph.Name = "txtParagraph";
             this.txtParagraph.ReadOnly = true;
             this.txtParagraph.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtParagraph.Size = new System.Drawing.Size(284, 81);
+            this.txtParagraph.Size = new System.Drawing.Size(349, 81);
             this.txtParagraph.TabIndex = 1;
+            // 
+            // btnUnmap
+            // 
+            this.btnUnmap.Enabled = false;
+            this.btnUnmap.Location = new System.Drawing.Point(285, 6);
+            this.btnUnmap.Name = "btnUnmap";
+            this.btnUnmap.Size = new System.Drawing.Size(58, 23);
+            this.btnUnmap.TabIndex = 1;
+            this.btnUnmap.Text = "&Unmap";
+            this.btnUnmap.UseVisualStyleBackColor = true;
+            this.btnUnmap.Click += new System.EventHandler(this.btnUnmap_Click);
             // 
             // frmAddEditMap
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 113);
+            this.ClientSize = new System.Drawing.Size(349, 113);
             this.Controls.Add(this.txtParagraph);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -113,5 +126,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblParagraphNumber;
         private System.Windows.Forms.TextBox txtParagraph;
+        private System.Windows.Forms.Button btnUnmap;
     }
 }

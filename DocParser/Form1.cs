@@ -19,10 +19,12 @@ namespace DocParser
         public DocX Document { get; set; }
         public bool DebugMode { get; set; }
         private Dictionary<int, string> map;
+        private frmViewMap view;
 
         public Dictionary<int, string> Map { get { return map; } }
 
         private string mapName = "<unsaved map>";
+        public string MapName { get { return mapName; } }
         #endregion
 
         #region Expose Map
@@ -80,13 +82,18 @@ namespace DocParser
         }
         public bool RemoveMap(int index)
         {
+            if (!map.ContainsKey(index))
+                return false;
+
             map.Remove(index);
+            UpdateMapInfo();
             return true;
         }
 
         private void UpdateMapInfo()
         {
             lblMapName.Text = mapName + " (" + map.Count.ToString() + " keys)";
+            view.LoadList();
         }
         #endregion
 
@@ -102,19 +109,29 @@ namespace DocParser
             Document = DocX.Load(openFileDialog1.FileName);
             lblLoading.Text = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
             GetParagraphs(Document);
+
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
             saveFileMap.ShowDialog();
         }
-
+        private void saveFileMap_FileOk(object sender, CancelEventArgs e)
+        {
+            var s = Path.GetFileNameWithoutExtension(saveFileMap.FileName);
+            mapName = (s.Length <= 24) ? s : s.Substring(0, 21) + "...";
+            SaveMap(map, saveFileMap.FileName);
+        }
         private void btnOpen_Click(object sender, EventArgs e)
         {
             openFileMap.ShowDialog();
         }
+        private void openFileMap_FileOk(object sender, CancelEventArgs e)
+        {
+            LoadMap(openFileMap.FileName);
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            lblLoading.Text = "";
+            
         }
         private void listP_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -143,6 +160,7 @@ namespace DocParser
         {
             InitializeComponent();
             map = new Dictionary<int, string>();
+            view = new frmViewMap(this);
         }
 
         public void ParseDoc(DocX doc)
@@ -162,6 +180,7 @@ namespace DocParser
                 listP.Items.Add(string.Format("[{0}]: {1}\r\n", i, p.Text));
                 i++;
             }
+            listP.Enabled = (i > 0);
         }
 
         #region Serialization
@@ -194,15 +213,24 @@ namespace DocParser
             var xml = XElement.Load(path);
 
             map.Clear();
-            mapName = (string)xml.Element("Map").Attribute("name");
+            mapName = (string)xml.Attribute("name");
 
             map = xml.Elements("Field")
-            .Select(x => new { paragraph = (int)x.Attribute("paragraph"), name = (string)x.Attribute("name") })
-            .ToDictionary(x => x.paragraph, x => x.name);
+                .Select(x => new { paragraph = (int)x.Attribute("paragraph"), name = (string)x.Attribute("name") })
+                .ToDictionary(x => x.paragraph, x => x.name);
 
             UpdateMapInfo();
         }
 
         #endregion
+
+        private void btnViewMap_Click(object sender, EventArgs e)
+        {
+            view.Show();
+        }
+
+
+
+
     }
 }

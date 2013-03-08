@@ -23,15 +23,19 @@ namespace DocParser
             this.parent = parent;
             this.index = index;
 
-            txtParagraph.Text = parent.Document.Paragraphs[index].Text;
-            lblParagraphNumber.Text += " [" + index.ToString() + "]";
+            if(parent.Document != null)
+                txtParagraph.Text = parent.Document.Paragraphs[index].Text;
+            lblParagraphNumber.Text += " " + index.ToString();
         }
 
         private void frmAddEditMap_Load(object sender, EventArgs e)
         {
             this.Text = (EditMode) ? "Edit Field" : "Add New Field";
             if (EditMode)
+            {
                 txtFieldName.Text = parent.Map[index];
+                btnUnmap.Enabled = true;
+            }
             else
                 btnSave.Enabled = false;
 
@@ -60,6 +64,12 @@ namespace DocParser
         private void txtFieldName_TextChanged(object sender, EventArgs e)
         {
             btnSave.Enabled = (txtFieldName.Text != "" && txtFieldName.Text != "<Enter field name>");
+        }
+
+        private void btnUnmap_Click(object sender, EventArgs e)
+        {
+            parent.RemoveMap(index);
+            Close();
         }
     }
 }

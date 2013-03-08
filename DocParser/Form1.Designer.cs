@@ -35,16 +35,16 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnImportDoc = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.btnNew = new System.Windows.Forms.ToolStripButton();
             this.btnOpen = new System.Windows.Forms.ToolStripButton();
             this.btnSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnEditMap = new System.Windows.Forms.ToolStripButton();
+            this.btnViewMap = new System.Windows.Forms.ToolStripButton();
             this.btnDebug = new System.Windows.Forms.ToolStripButton();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.listP = new System.Windows.Forms.ListBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblMapName = new System.Windows.Forms.ToolStripLabel();
-            this.btnNew = new System.Windows.Forms.ToolStripButton();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.listP = new System.Windows.Forms.ListBox();
             this.saveFileMap = new System.Windows.Forms.SaveFileDialog();
             this.openFileMap = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1.SuspendLayout();
@@ -86,7 +86,7 @@
             this.btnOpen,
             this.btnSave,
             this.toolStripSeparator1,
-            this.btnEditMap,
+            this.btnViewMap,
             this.btnDebug,
             this.toolStripSeparator2,
             this.lblMapName});
@@ -111,6 +111,16 @@
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
             this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnNew
+            // 
+            this.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnNew.Image = ((System.Drawing.Image)(resources.GetObject("btnNew.Image")));
+            this.btnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(23, 22);
+            this.btnNew.Text = "&New";
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // btnOpen
             // 
@@ -139,15 +149,16 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // btnEditMap
+            // btnViewMap
             // 
-            this.btnEditMap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnEditMap.Image = ((System.Drawing.Image)(resources.GetObject("btnEditMap.Image")));
-            this.btnEditMap.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEditMap.Name = "btnEditMap";
-            this.btnEditMap.Size = new System.Drawing.Size(23, 22);
-            this.btnEditMap.Text = "toolStripButton1";
-            this.btnEditMap.ToolTipText = "Edit Field Mappings";
+            this.btnViewMap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnViewMap.Image = ((System.Drawing.Image)(resources.GetObject("btnViewMap.Image")));
+            this.btnViewMap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnViewMap.Name = "btnViewMap";
+            this.btnViewMap.Size = new System.Drawing.Size(23, 22);
+            this.btnViewMap.Text = "toolStripButton1";
+            this.btnViewMap.ToolTipText = "View Field Mappings";
+            this.btnViewMap.Click += new System.EventHandler(this.btnViewMap_Click);
             // 
             // btnDebug
             // 
@@ -160,23 +171,6 @@
             this.btnDebug.ToolTipText = "Debug Mode";
             this.btnDebug.Click += new System.EventHandler(this.btnEnablebreak_Click);
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "atp-cop.docx";
-            this.openFileDialog1.Filter = "Word 2007/2010 files|*.docx|All Files|*.*\"";
-            this.openFileDialog1.Title = "Import Word Document";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // listP
-            // 
-            this.listP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listP.FormattingEnabled = true;
-            this.listP.Location = new System.Drawing.Point(0, 25);
-            this.listP.Name = "listP";
-            this.listP.Size = new System.Drawing.Size(349, 214);
-            this.listP.TabIndex = 4;
-            this.listP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listP_MouseDoubleClick);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -188,26 +182,35 @@
             this.lblMapName.Size = new System.Drawing.Size(94, 22);
             this.lblMapName.Text = "<unsaved map>";
             // 
-            // btnNew
+            // openFileDialog1
             // 
-            this.btnNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnNew.Image = ((System.Drawing.Image)(resources.GetObject("btnNew.Image")));
-            this.btnNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnNew.Name = "btnNew";
-            this.btnNew.Size = new System.Drawing.Size(23, 22);
-            this.btnNew.Text = "&New";
-            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+            this.openFileDialog1.FileName = "atp-cop.docx";
+            this.openFileDialog1.Filter = "Word 2007/2010 files|*.docx|All Files|*.*\"";
+            this.openFileDialog1.Title = "Import Word Document";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // listP
+            // 
+            this.listP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listP.Enabled = false;
+            this.listP.FormattingEnabled = true;
+            this.listP.Location = new System.Drawing.Point(0, 25);
+            this.listP.Name = "listP";
+            this.listP.Size = new System.Drawing.Size(349, 214);
+            this.listP.TabIndex = 4;
+            this.listP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listP_MouseDoubleClick);
             // 
             // saveFileMap
             // 
             this.saveFileMap.Filter = "XML Files|*.xml";
             this.saveFileMap.Title = "Save Map";
+            this.saveFileMap.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileMap_FileOk);
             // 
             // openFileMap
             // 
-            this.openFileMap.FileName = "openFileDialog2";
             this.openFileMap.Filter = "XML Files|*.xml";
             this.openFileMap.Title = "Load Map";
+            this.openFileMap.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileMap_FileOk);
             // 
             // Form1
             // 
@@ -218,6 +221,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Docx Field Mapper";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -244,7 +248,7 @@
         private System.Windows.Forms.ListBox listP;
         private System.Windows.Forms.ToolStripButton btnImportDoc;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnEditMap;
+        private System.Windows.Forms.ToolStripButton btnViewMap;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel lblMapName;
         private System.Windows.Forms.ToolStripButton btnNew;
