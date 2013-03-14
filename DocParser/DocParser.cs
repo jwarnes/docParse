@@ -17,7 +17,7 @@ namespace DocParser
         Text, Integer, Decimal, Date, Boolean, List
     }
     /// <summary>
-    /// This structure contains the string value extracted from the document, and the type indicated by the configuration tool.
+    /// This structure contains the string value extracted from the document, and the data type expected
     /// </summary>
     public struct DocField
     {
@@ -28,7 +28,7 @@ namespace DocParser
     /// <summary>
     /// This class uses an XML map to extract data from a *.docx document
     /// </summary>
-    public class DocParser
+    public static class DocParser
     {
         /// <summary>
         /// This method returns a dictionary object containing the text and indicated value type of every item specified in the map.
@@ -37,7 +37,7 @@ namespace DocParser
         /// <param name="documentPath">File path of the *.docx document</param>
         /// <param name="mapPath">File path of the XML file containing the field mappings</param>
         /// <returns></returns>
-        public static Dictionary<string, DocField> CaptureDocumentInfo(string documentPath, string mapPath)
+        public static Dictionary<string, DocField> CaptureDocumentData(string documentPath, string mapPath)
         {
             var xml = XElement.Load(mapPath);
             var doc = DocX.Load(documentPath);
@@ -48,10 +48,13 @@ namespace DocParser
                 .Select(x => new
                 {
                     paragraph = (int)x.Attribute("paragraph"),
-                    name = (string)x.Attribute("name"),
-                    type = (DocFieldDataType)Enum.Parse(typeof(DocFieldDataType), (string)x.Attribute("type"))
+                    info = new DocField() 
+                    { 
+                        Type = (DocFieldDataType)Enum.Parse(typeof(DocFieldDataType), (string)x.Attribute("type")),
+                        Text = (string)x.Attribute("name")
+                    }
                 })
-                .ToDictionary(x => x.paragraph, x => new DocField() { Text = x.name, Type = x.type });
+                .ToDictionary(x => x.paragraph, x => x.info);
 
             foreach (var field in map)
             {
