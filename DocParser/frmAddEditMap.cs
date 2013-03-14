@@ -9,12 +9,16 @@ using System.Windows.Forms;
 
 namespace DocParser
 {
+
     public partial class frmAddEditMap : Form
     {
         #region Fields
         public bool EditMode { get; set; }
         private frmMain parent;
         private int index;
+
+        private DocFieldDataType type = DocFieldDataType.Text;
+        private List<string> enumValues;
         #endregion
 
         #region UI
@@ -25,12 +29,13 @@ namespace DocParser
             if (EditMode)
             {
                 txtFieldName.Text = parent.Map[index];
+                loadType(parent.MapTypes[index]);
                 btnUnmap.Enabled = true;
             }
             else
                 btnSave.Enabled = false;
 
-
+            enumValues = new List<string>();
             txtFieldName.Focus();
         }
 
@@ -38,14 +43,14 @@ namespace DocParser
         {
             if (!EditMode)
             {
-                if (parent.AddMap(txtFieldName.Text, index))
+                if (parent.AddMap(txtFieldName.Text, index, type))
                     Close();
                 else
                     txtFieldName.Focus();
             }
             else
             {
-                if (parent.EditMap(txtFieldName.Text, index))
+                if (parent.EditMap(txtFieldName.Text, index, type))
                     Close();
                 else
                     txtFieldName.Focus();
@@ -56,6 +61,11 @@ namespace DocParser
         {
             parent.RemoveMap(index);
             Close();
+        }
+
+        private void rb_Click(object sender, EventArgs e)
+        {
+            this.type = (DocFieldDataType)Enum.Parse(typeof(DocFieldDataType), ((RadioButton)sender).Tag.ToString());
         }
         #endregion
 
@@ -76,5 +86,17 @@ namespace DocParser
         {
             btnSave.Enabled = (txtFieldName.Text != "" && txtFieldName.Text != "<Enter field name>");
         }
+
+        private void loadType(DocFieldDataType type)
+        {
+            var buttons = new RadioButton[6] { rbCurrency, rbDate, rbList, rbNum, rbText, rbYesNo };
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].Checked = (buttons[i].Tag.ToString() == type.ToString());
+            }
+        }
+
+
     }
 }

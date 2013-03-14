@@ -19,9 +19,11 @@ namespace DocParser
         public DocX Document { get; set; }
         public bool DebugMode { get; set; }
         private Dictionary<int, string> map;
+        private Dictionary<int, DocFieldDataType> mapTypes;
         private frmViewMap view;
 
         public Dictionary<int, string> Map { get { return map; } }
+        public Dictionary<int, DocFieldDataType> MapTypes { get { return mapTypes; } }
 
         private string mapName = "<unsaved map>";
         public string MapName { get { return mapName; } }
@@ -31,6 +33,7 @@ namespace DocParser
         {
             InitializeComponent();
             map = new Dictionary<int, string>();
+            mapTypes = new Dictionary<int, DocFieldDataType>();
             view = new frmViewMap(this);
         }
 
@@ -43,11 +46,12 @@ namespace DocParser
             }
             return true;
         }
-        public bool AddMap(string name, int paragraph)
+        public bool AddMap(string name, int paragraph, DocFieldDataType type)
         {
             if (!map.ContainsValue(name))
             {
                 map.Add(paragraph, name);
+                mapTypes.Add(paragraph, type);
                 UpdateMapInfo();
                 return true;
             }
@@ -56,25 +60,31 @@ namespace DocParser
                 if (Overwrite(name))
                 {
                     //remove old mapping
-                    map.Remove(map.First(x => x.Value == name).Key);
+                    var removeIndex = map.First(x => x.Value == name).Key;
+                    map.Remove(removeIndex);
+                    mapTypes.Remove(removeIndex);
+
                     map.Add(paragraph, name);
+                    mapTypes.Add(paragraph, type);
                     UpdateMapInfo();
                     return true;
                 }
                 return false;
             }
 
-            lblMapName.Text = map.Count.ToString();
-            return true;
         }
-        public bool EditMap(string name, int index)
+        public bool EditMap(string name, int index, DocFieldDataType type)
         {
             if (map[index] != name && map.ContainsValue(name))
             {
                 if (Overwrite(name))
                 {
-                    map.Remove(map.First(x => x.Value == name).Key);
+                    var removeIndex = map.First(x => x.Value == name).Key;
+                    map.Remove(removeIndex);
+                    mapTypes.Remove(removeIndex);
+
                     map[index] = name;
+                    mapTypes[index] = type;
                     UpdateMapInfo();
                     return true;
                 }
@@ -83,6 +93,7 @@ namespace DocParser
             else
             {
                 map[index] = name;
+                mapTypes[index] = type;
                 UpdateMapInfo();
                 return true;
             }
@@ -93,6 +104,8 @@ namespace DocParser
                 return false;
 
             map.Remove(index);
+            mapTypes.Remove(index);
+
             UpdateMapInfo();
             return true;
         }
@@ -127,7 +140,7 @@ namespace DocParser
         {
             var s = Path.GetFileNameWithoutExtension(saveFileMap.FileName);
             mapName = (s.Length <= 24) ? s : s.Substring(0, 21) + "...";
-            SaveMap(map, saveFileMap.FileName);
+            SaveMap(map, mapTypes, saveFileMap.FileName);
             UpdateMapInfo();
         }
         private void btnOpen_Click(object sender, EventArgs e)
@@ -191,7 +204,7 @@ namespace DocParser
 
         #region Serialization
 
-        public void SaveMap(Dictionary<int, string> map, string path)
+        public void SaveMap(Dictionary<int, string> map, Dictionary<int, DocFieldDataType> types, string path)
         {
             var settings = new XmlWriterSettings();
             settings.Indent = true;
@@ -207,6 +220,7 @@ namespace DocParser
                     w.WriteStartElement("Field");
                         w.WriteAttributeString("name", field.Value);
                         w.WriteAttributeString("paragraph", field.Key.ToString());
+                        w.WriteAttributeString("type", types[field.Key].ToString());
                     w.WriteEndElement();
                 }
                 w.WriteEndElement();
@@ -223,7 +237,11 @@ namespace DocParser
 
             map = xml.Elements("Field")
                 .Select(x => new { paragraph = (int)x.Attribute("paragraph"), name = (string)x.Attribute("name") })
-                .ToDictionary(x => x.paragraph, x => x.name);
+                .ToDictionary(x => x.paragraph, x => x.name );
+
+            mapTypes = xml.Elements("Field")
+               .Select(x => new { paragraph = (int)x.Attribute("paragraph"), type = (DocFieldDataType)Enum.Parse(typeof(DocFieldDataType), (string)x.Attribute("type")) })
+               .ToDictionary(x => x.paragraph, x => x.type);
 
             UpdateMapInfo();
         }

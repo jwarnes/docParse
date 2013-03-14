@@ -38,9 +38,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblMapName});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 116);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 354);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(284, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(541, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -56,7 +56,7 @@
             this.listFields.FormattingEnabled = true;
             this.listFields.Location = new System.Drawing.Point(0, 0);
             this.listFields.Name = "listFields";
-            this.listFields.Size = new System.Drawing.Size(284, 116);
+            this.listFields.Size = new System.Drawing.Size(541, 354);
             this.listFields.TabIndex = 1;
             this.listFields.DoubleClick += new System.EventHandler(this.listFields_DoubleClick);
             // 
@@ -64,7 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 138);
+            this.ClientSize = new System.Drawing.Size(541, 376);
             this.Controls.Add(this.listFields);
             this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
