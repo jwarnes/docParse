@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Novacode;
 
-namespace AwardsDatabase
+namespace DocParser
 {
     #region Structures
     /// <summary>
@@ -103,10 +103,10 @@ namespace AwardsDatabase
         {
             var doc = DocX.Load(documentPath);
             var path = "";
-            if (doc.Paragraphs[2].Text.Trim() == "Agreement to Pursue")
-                path = "ATP.xml";
-            if (doc.Paragraphs[2].Text.Trim() == "Agreement to Submit")
-                path = "ATS.xml";
+            if (doc.Paragraphs[2].Text.Trim() == "Agreement to Pursue") path = "ATP.xml";
+            else if (doc.Paragraphs[2].Text.Trim() == "Agreement to Submit") path = "ATS.xml";
+            else
+                throw new Exception("Could not determine form type");
             doc.Dispose();
 
             return CaptureDocumentData(documentPath, path);
